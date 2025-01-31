@@ -54,6 +54,8 @@ From observation of the two histograms, it can be determined that there is a hig
 Now is a good time to render, commit, and push. Make sure that you commit and push all changed documents and your Git pane is completely empty before proceeding.
 :::
 
+\newpage
+
 ## Exercise 2
 
 It's expected that within any given market larger houses will be priced higher. It's also expected that the age of the house will have an effect on the price. However in some markets new houses might be more expensive while in others new construction might mean "no character" and hence be less expensive. So your family friends ask: "In Duke Forest, do houses that are bigger and more expensive tend to be newer ones than those that are smaller and cheaper?"
@@ -71,10 +73,16 @@ Once again, data visualization skills to the rescue!
 ```{r}
 #| label: price-area
 
-# add code here
+ggplot(duke_forest, aes(x = area, y = price)) + geom_point(aes(color = year_built)) + 
+  geom_smooth(se = FALSE, color = "red") + labs(title = "Duke Forest House Size and
+  Price Comparison", x = "House Size (Sqft)", y = "House Price ($)")
 ```
 
-Add narrative here...
+**1)** As shown in the scatter plot, it appears that the majority of larger houses are priced higher then small houses. There are some outliers, but the majority of houses greater then 4,000 square feet are larger in size.
+
+**2)** All newer houses (\>\~2020) are not priced higher then older homes. Other then the lone outlier, newer homes are priced in similar regions of older home of between 400k and 800k dollars
+
+**3)** Claim 3 is false, it appears the larger and more expensive homes appear to be older houses.
 
 ::: callout-important
 Now is a good time to render, commit, and push. Make sure that you commit and push all changed documents and your Git pane is completely empty before proceeding.
