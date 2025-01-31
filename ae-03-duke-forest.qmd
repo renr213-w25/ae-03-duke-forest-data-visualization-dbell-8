@@ -1,5 +1,7 @@
 ---
 title: "AE 03: Duke Forest + data visualization"
+author: "David Bell"
+format: pdf
 ---
 
 ```{r}
@@ -12,8 +14,7 @@ library(openintro)
 
 ## Exercise 1
 
-Suppose you're helping some family friends who are looking to buy a house in Duke Forest.
-As they browse Zillow listings, they realize some houses have garages and others don't, and they wonder: **Does having a garage make a difference?**
+Suppose you're helping some family friends who are looking to buy a house in Duke Forest. As they browse Zillow listings, they realize some houses have garages and others don't, and they wonder: **Does having a garage make a difference?**
 
 Luckily, you can help them answer this question with data visualization!
 
@@ -25,7 +26,7 @@ Luckily, you can help them answer this question with data visualization!
 #| label: garage
 #| eval: false
 
-duke_forest |>
+duke_forest <- duke_forest %>%
   mutate(garage = if_else(str_detect(parking, "Garage"),   "Garage", "No garage"))
 ```
 
@@ -34,25 +35,28 @@ duke_forest |>
 -   Include informative title and axis labels.
 -   Finally, include a brief (2-3 sentence) narrative comparing the distributions of prices of Duke Forest houses that do and don't have garages. Your narrative should touch on whether having a garage "makes a difference" in terms of the price of the house.
 
-```{r}
+```{r House w Garage}
 #| label: price-garage
 
-# add code here
+duke_forest <- duke_forest %>%
+  mutate(garage = if_else(str_detect(parking, "Garage"),   "Garage", 
+   "No garage"))
+
+ggplot(duke_forest, aes(x = price)) + geom_histogram(show.legend = FALSE, 
+  bins = 10) +  labs(title = "House Price Comparison of Duke Forest", 
+ subtitle = "Houses with Garages vs Without Garages", 
+ x = "House Cost", y = "Number of Houses") + facet_wrap(~garage) 
 ```
 
-Add narrative here...
+From observation of the two histograms, it can be determined that there is a higher amount of houses in duke forest without a garage. Alltough more houses with no garages, it appears that the house have a similar median around the \$500K mark.
 
 ::: callout-important
-Now is a good time to render, commit, and push.
-Make sure that you commit and push all changed documents and your Git pane is completely empty before proceeding.
+Now is a good time to render, commit, and push. Make sure that you commit and push all changed documents and your Git pane is completely empty before proceeding.
 :::
 
 ## Exercise 2
 
-It's expected that within any given market larger houses will be priced higher.
-It's also expected that the age of the house will have an effect on the price.
-However in some markets new houses might be more expensive while in others new construction might mean "no character" and hence be less expensive.
-So your family friends ask: "In Duke Forest, do houses that are bigger and more expensive tend to be newer ones than those that are smaller and cheaper?"
+It's expected that within any given market larger houses will be priced higher. It's also expected that the age of the house will have an effect on the price. However in some markets new houses might be more expensive while in others new construction might mean "no character" and hence be less expensive. So your family friends ask: "In Duke Forest, do houses that are bigger and more expensive tend to be newer ones than those that are smaller and cheaper?"
 
 Once again, data visualization skills to the rescue!
 
@@ -73,6 +77,5 @@ Once again, data visualization skills to the rescue!
 Add narrative here...
 
 ::: callout-important
-Now is a good time to render, commit, and push.
-Make sure that you commit and push all changed documents and your Git pane is completely empty before proceeding.
+Now is a good time to render, commit, and push. Make sure that you commit and push all changed documents and your Git pane is completely empty before proceeding.
 :::
